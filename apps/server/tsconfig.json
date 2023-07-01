@@ -1,0 +1,24 @@
+{
+  "extends": "tsconfig/nestjs.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@providers": ["common/providers/index.ts"],
+      "@providers/*": ["common/providers/*"],
+      "@guards": ["common/guards/index.ts"],
+      "@guards/*": ["common/guards/*"],
+      "@filters": ["common/filters/index.ts"],
+      "@filters/*": ["common/filters/*"],
+      "@decorators": ["common/decorators/index.ts"],
+      "@decorators/*": ["common/decorators/*"],
+      "@interceptors": ["common/interceptors/index.ts"],
+      "@interceptors/*": ["common/interceptors/*"],
+      "@configs": ["configs/index.ts"],
+      "@configs/*": ["configs/*"],
+      "@common": ["common/index.ts"],
+      "@modules": ["modules/index.ts"],
+      "@modules/*": ["modules/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "Test", "**/*spec.ts"]
+}

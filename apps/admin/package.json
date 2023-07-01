@@ -1,0 +1,50 @@
+{
+  "name": "admin",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "start:dev": "next dev",
+    "lint": "tsc --noEmit && eslint \"app/**/*.ts*\"",
+    "prettier": "prettier --write --ignore-unknown .",
+    "prettier:check": "prettier --check --ignore-unknown .",
+    "start": "next start",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "clean": "rm -rf .turbo && rm -rf node_modules"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@kimjwally/ui": "workspace:*",
+    "@kimjwally/utils": "workspace:*",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.13.1",
+    "@tanstack/react-table": "^8.9.1",
+    "@types/react-pdf": "6.2.0",
+    "file-saver": "2.0.5",
+    "lodash": "^4.17.21",
+    "mobx": "^6.8.0",
+    "mobx-react-lite": "^3.4.0",
+    "mobx-state-tree": "5.1.8",
+    "next": "13.4.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-pdf": "7.0.1",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/file-saver": "2.0.5",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "18.11.17",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "eslint": "8.30.0",
+    "eslint-config-custom": "workspace:*",
+    "file-loader": "6.2.0",
+    "prettier": "2.8.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4",
+    "url-loader": "4.1.1",
+    "vitest": "0.31.1"
+  }
+}

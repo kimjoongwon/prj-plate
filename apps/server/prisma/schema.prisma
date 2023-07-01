@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  profile   Profile?
+
+  @@map("users")
+}
+
+model Profile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  phone     String   @unique
+  nickname  String
+  userId    String   @unique @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("profiles")
+}
+
+enum Role {
+  USER
+  SUPER_ADMIN
+
+  @@map("Role")
+}
+
+model Roles {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("roles")
+}
+
+model UserGroupCategory {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now())
+  UserGroup UserGroup[]
+
+  @@map("userGroupCategories")
+}
+
+model UserGroup {
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  category     UserGroupCategory @relation(fields: [categoryId], references: [id])
+  categoryId   String            @db.ObjectId
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @default(now())
+  workspaceIds String[]          @db.ObjectId
+  workspace    Workspace[]       @relation(fields: [workspaceIds], references: [id])
+
+  @@map("userGroups")
+}
+
+model Workspace {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  createdAt    DateTime
+  updatedAt    DateTime
+  userGroupIds String[]    @db.ObjectId
+  userGroups   UserGroup[] @relation(fields: [userGroupIds], references: [id])
+
+  @@map("workspaces")
+}
+
+model UserWorkspace {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  childrenIds String[]
+  roleId      String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  member      Member?  @relation(fields: [memberId], references: [id])
+  memberId    String?  @db.ObjectId
+
+  @@map("userWorkspaces")
+}
+
+model Member {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  userWorkspaces UserWorkspace[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now())
+
+  @@map("members")
+}
